@@ -22,7 +22,7 @@ COPY --from=builder /app/target/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
 ```
-# Docker
+
 ##Project structure
 ```text
 java-multistage-app/
@@ -35,7 +35,7 @@ java-multistage-app/
                 └── example/
                     └── App.java
 ```
- # Docker
+
   ## pom.xml
   ```xml
   <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -81,7 +81,7 @@ java-multistage-app/
 
 </project>
 ```
-# Docker
+
 ##App.Java
 ```dockerfile
 package com.example;
@@ -104,7 +104,7 @@ public class App {
     }
 }
 ```
-# Docker
+
 ## Build & Run
 ```text
 docker build -t java-maven-app .
@@ -116,13 +116,19 @@ docker run java-maven-app
 Hello from Maven Multi-Stage Docker Build!
 ```
 
-``` Important Understanding (Interview)
+## Important Understanding (Interview)
 
-👉 What happens internally:
+> 👉 **What happens internally?**
+>
+> **Stage 1 (Maven image)**
+> - Downloads dependencies
+> - Runs `mvn clean package`
+> - Creates `.jar` file inside `/target`
+>
+> **Stage 2 (Lightweight JDK image)**
+> - Copies only the `.jar`
+> - Runs the application
 
-Stage 1 (Maven image) Downloads dependencies Runs mvn clean package Creates .jar file inside /target Stage 2 (Lightweight JDK image) Copies only .jar Runs the app
-```
-#docker
 ## Single-Stage Dockerfile (Java Maven)
 ```text
 FROM maven:3.9.6-eclipse-temurin-17
@@ -139,13 +145,13 @@ RUN mvn clean package -DskipTests
 # Run the JAR
 CMD ["java", "-jar", "target/java-multistage-app-1.0.jar"]
 ```
-#docker
+
 ## Build & Run
 ```text
 docker build -t java-single-stage .
 docker run java-single-stage
 ```
-#docker
+
 ##project structure
 ```text
 java-multistage-app/
