@@ -116,12 +116,7 @@ docker run java-maven-app
 Hello from Maven Multi-Stage Docker Build!
 ```
 
-    public String home() {
-        return "Hello from Spring Boot Docker!";
-    }
-}
-```
-```text Important Understanding (Interview)
+``` Important Understanding (Interview)
 
 👉 What happens internally:
 
