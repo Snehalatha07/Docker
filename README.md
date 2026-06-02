@@ -22,9 +22,10 @@ COPY --from=builder /app/target/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
 ```
+# Docker
 
 ##Project structure
-```dockerfile
+```text
 java-multistage-app/
 │
 ├── pom.xml
@@ -34,9 +35,10 @@ java-multistage-app/
             └── com/
                 └── example/
                     └── App.java
-
+```
+ # Docker
   ## pom.xml
-  ```dockerfile
+  ```xml
   <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
@@ -79,7 +81,7 @@ java-multistage-app/
     </build>
 
 </project>
-
+```
 ##App.Java
 ```dockerfile
 package com.example;
@@ -95,6 +97,8 @@ public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
+```
+
 
     @GetMapping("/")
     public String home() {
