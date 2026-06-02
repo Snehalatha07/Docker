@@ -23,7 +23,6 @@ COPY --from=builder /app/target/*.jar app.jar
 CMD ["java", "-jar", "app.jar"]
 ```
 # Docker
-
 ##Project structure
 ```text
 java-multistage-app/
@@ -82,6 +81,7 @@ java-multistage-app/
 
 </project>
 ```
+# Docker
 ##App.Java
 ```dockerfile
 package com.example;
@@ -97,10 +97,25 @@ public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
-```
-
 
     @GetMapping("/")
+    public String home() {
+        return "Hello from Spring Boot Docker!";
+    }
+}
+```
+# Docker
+## Build & Run
+```text
+docker build -t java-maven-app .
+docker run java-maven-app
+```
+#Docker
+##Output
+```text
+Hello from Maven Multi-Stage Docker Build!
+```
+
     public String home() {
         return "Hello from Spring Boot Docker!";
     }
