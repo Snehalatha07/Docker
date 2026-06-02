@@ -120,3 +120,40 @@ Hello from Maven Multi-Stage Docker Build!
         return "Hello from Spring Boot Docker!";
     }
 }
+```
+```text Important Understanding (Interview)
+
+👉 What happens internally:
+
+Stage 1 (Maven image) Downloads dependencies Runs mvn clean package Creates .jar file inside /target Stage 2 (Lightweight JDK image) Copies only .jar Runs the app
+```
+#docker
+## Single-Stage Dockerfile (Java Maven)
+```text
+FROM maven:3.9.6-eclipse-temurin-17
+
+WORKDIR /app
+
+# Copy project files
+COPY pom.xml .
+COPY src ./src
+
+# Build the application
+RUN mvn clean package -DskipTests
+
+# Run the JAR
+CMD ["java", "-jar", "target/java-multistage-app-1.0.jar"]
+```
+#docker
+## Build & Run
+```text
+docker build -t java-single-stage .
+docker run java-single-stage
+```
+#docker
+##project structure
+```text
+java-multistage-app/
+├── pom.xml
+└── src/main/java/com/example/App.java
+```
